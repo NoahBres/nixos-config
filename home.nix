@@ -9,6 +9,7 @@
     just
     bun
     tree
+    nodejs_24
 
     # p10k
     zsh-powerlevel10k
