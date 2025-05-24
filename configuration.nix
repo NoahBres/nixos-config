@@ -15,6 +15,8 @@
     useGlobalPkgs = true;
     useUserPackages = true;
     users.noah = import ./home.nix;
+
+    backupFileExtension = "hm-backup";
   };
 
   security.pam.services.sudo_local.touchIdAuth = true;
