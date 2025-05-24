@@ -4,6 +4,8 @@
   programs.direnv.nix-direnv.enable = true;
 
   home.packages = with pkgs; [
+    gh # GitHub CLI
+
     just
 
     # Nix LSP/formatter
