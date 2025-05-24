@@ -17,6 +17,8 @@
     users.noah = import ./home.nix;
   };
 
+  security.pam.services.sudo_local.touchIdAuth = true;
+
   system.configurationRevision = inputs.self.rev or inputs.self.dirtyRev or null;
   system.stateVersion = 6;
   nixpkgs.hostPlatform = "aarch64-darwin";
