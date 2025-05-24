@@ -4,6 +4,9 @@
   programs.direnv.nix-direnv.enable = true;
 
   home.packages = with pkgs; [
+    just
+
+    # Nix LSP/formatter
     nil
     nixfmt-rfc-style
   ];
