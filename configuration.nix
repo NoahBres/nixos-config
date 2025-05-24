@@ -7,6 +7,10 @@
     home = "/Users/noah";
   };
 
+  environment.etc."nix/nix.custom.conf".text = ''
+    lazy-trees = true
+  '';
+
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
   home-manager.users.noah = import ./home.nix;
