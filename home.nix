@@ -21,6 +21,8 @@
 
     # TODO:
     # comma?
+
+    uv
   ];
 
   home.sessionPath = [ "/Users/noah/.bun/bin" ];
