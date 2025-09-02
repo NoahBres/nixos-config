@@ -1,5 +1,5 @@
 update:
-  nix flake update nixpkgs
+  nix flake update
 
 build:
   sudo darwin-rebuild build --flake .
