@@ -11,6 +11,11 @@
     lazy-trees = true
   '';
 
+  homebrew = {
+    enable = true;
+    casks = [ "zed" ];
+  };
+
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
@@ -21,6 +26,7 @@
 
   security.pam.services.sudo_local.touchIdAuth = true;
 
+  system.primaryUser = "noah";
   system.configurationRevision = inputs.self.rev or inputs.self.dirtyRev or null;
   system.stateVersion = 6;
   nixpkgs.hostPlatform = "aarch64-darwin";
