@@ -9,6 +9,7 @@
 
   environment.etc."nix/nix.custom.conf".text = ''
     lazy-trees = true
+    eval-cores = 0
   '';
 
   homebrew = {
