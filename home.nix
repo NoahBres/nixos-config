@@ -53,6 +53,7 @@
       meslo-lgs-nf
 
       # Nix LSP/formatter
+      nixd
       nil
       nixfmt-rfc-style
 
