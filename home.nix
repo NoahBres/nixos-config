@@ -6,6 +6,8 @@
       nix-direnv.enable = true;
     };
 
+    zoxide.enable = true;
+
     zsh = {
       enable = true;
 
