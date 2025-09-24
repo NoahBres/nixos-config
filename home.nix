@@ -61,6 +61,9 @@
       # comma?
 
       uv
+      cargo
+      rustc
+      rust-analyzer
     ];
 
     sessionPath = [ "/Users/noah/.bun/bin" ];
