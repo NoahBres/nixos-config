@@ -14,7 +14,10 @@
 
   homebrew = {
     enable = true;
-    casks = [ "zed" ];
+    casks = [
+      "zed"
+      "jordanbaird-ice"
+    ];
   };
 
   home-manager = {
