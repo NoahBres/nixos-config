@@ -17,6 +17,8 @@
     casks = [
       "zed"
       "jordanbaird-ice"
+
+      "voiceink"
     ];
   };
 
