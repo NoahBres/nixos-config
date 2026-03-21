@@ -71,7 +71,7 @@
       "cy" = "claude --dangerously-skip-permissions";
     };
 
-    file.".p10k.zsh".text = builtins.readFile ./zsh/.p10k.zsh;
+    file.".p10k.zsh".text = builtins.readFile ./modules/zsh/.p10k.zsh;
 
     stateVersion = "25.05";
   };
