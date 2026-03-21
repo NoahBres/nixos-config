@@ -19,6 +19,7 @@
       "jordanbaird-ice"
 
       "voiceink"
+      "claude-code"
     ];
   };
 
