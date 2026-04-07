@@ -7,6 +7,8 @@
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    googleworkspace-cli.url = "github:googleworkspace/cli";
   };
 
   outputs =
@@ -15,6 +17,8 @@
       nixpkgs,
       nix-darwin,
       home-manager,
+      googleworkspace-cli,
+      ...
     }:
     {
       # Build darwin flake using:

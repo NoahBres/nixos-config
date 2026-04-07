@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, inputs, ... }:
 {
   programs = {
     direnv = {
@@ -41,7 +41,11 @@
 
   home = {
     packages = with pkgs; [
+      inputs.googleworkspace-cli.packages.${pkgs.stdenv.hostPlatform.system}.default
+
+      _1password-cli # 1Password CLI (op)
       gh # GitHub CLI
+      google-cloud-sdk
 
       just
       bun

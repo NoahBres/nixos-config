@@ -34,6 +34,7 @@
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
+    extraSpecialArgs = { inherit inputs; };
     users.noah = import ./home.nix;
 
     backupFileExtension = "hm-backup";
