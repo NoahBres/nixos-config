@@ -58,7 +58,7 @@
 
       # Nix LSP/formatter
       nixd
-      nixfmt-rfc-style
+      nixfmt
 
       # TODO:
       # comma?
