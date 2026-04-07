@@ -14,12 +14,20 @@
 
   homebrew = {
     enable = true;
+    onActivation = {
+      autoUpdate = true;
+      upgrade = true;
+      cleanup = "zap";
+    };
+    # taps = [ "dan-hart/tap" ];
+    # brews = [ "dan-hart/tap/clings" ];
     casks = [
       "zed"
       "jordanbaird-ice"
 
       "voiceink"
       "claude-code"
+      "codex"
     ];
   };
 
