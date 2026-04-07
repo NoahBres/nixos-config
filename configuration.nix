@@ -7,10 +7,18 @@
     home = "/Users/noah";
   };
 
-  environment.etc."nix/nix.custom.conf".text = ''
-    lazy-trees = true
-    eval-cores = 0
-  '';
+  determinateNix = {
+    enable = true;
+    determinateNixd.builder.state = "enabled";
+    customSettings = {
+      lazy-trees = true;
+      eval-cores = 0;
+      trusted-users = [
+        "root"
+        "noah"
+      ];
+    };
+  };
 
   homebrew = {
     enable = true;
@@ -26,7 +34,6 @@
       "jordanbaird-ice"
 
       "voiceink"
-      "claude-code"
       "codex"
     ];
   };
@@ -47,11 +54,7 @@
   system.primaryUser = "noah";
   system.configurationRevision = inputs.self.rev or inputs.self.dirtyRev or null;
   system.stateVersion = 6;
+
   nixpkgs.hostPlatform = "aarch64-darwin";
   nixpkgs.config.allowUnfree = true;
-
-  # Turn off nix management as "Determinate uses its own daemon to manage
-  # the Nix installation that conflicts with nix-darwin’s native Nix management."
-  nix.enable = false;
-  # nix.settings.experimental-features = "nix-command flakes";
 }
