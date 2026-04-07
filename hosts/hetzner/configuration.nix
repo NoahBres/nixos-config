@@ -47,6 +47,7 @@
     vim
     curl
     htop
+    ghostty.terminfo # Provides xterm-ghostty terminfo for SSH sessions from Ghostty
   ];
 
   system.stateVersion = "25.05";
