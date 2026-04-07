@@ -2,12 +2,8 @@
 {
   imports = [ ./hardware-configuration.nix ];
 
-  # Bootloader
-  boot.loader.grub = {
-    enable = true;
-    device = "/dev/sda";
-    efiSupport = false;
-  };
+  # Bootloader — device is set by disko via the EF02 BIOS boot partition
+  boot.loader.grub.enable = true;
 
   networking.hostName = "hetzner";
 
