@@ -1,4 +1,9 @@
-{ pkgs, lib, inputs, ... }:
+{
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 {
   programs = {
     direnv = {
@@ -40,34 +45,63 @@
   };
 
   home = {
-    packages = with pkgs; [
-      inputs.googleworkspace-cli.packages.${pkgs.stdenv.hostPlatform.system}.default
+    packages =
+      with pkgs;
+      let
+        mkOpenRouterWrapper =
+          name: model: turboModel:
+          pkgs.writeShellScriptBin name ''
+            OPENROUTER_API_KEY=$(${pkgs._1password-cli}/bin/op read "op://Private/OpenRouter Key - Claude/password")
+            export OPENROUTER_API_KEY
+            export ANTHROPIC_BASE_URL="https://openrouter.ai/api"
+            export ANTHROPIC_AUTH_TOKEN="$OPENROUTER_API_KEY"
+            export ANTHROPIC_API_KEY=""
+            export ANTHROPIC_DEFAULT_OPUS_MODEL="${model}"
+            export ANTHROPIC_DEFAULT_SONNET_MODEL="${model}"
+            export ANTHROPIC_DEFAULT_HAIKU_MODEL="${turboModel}"
+            export CLAUDE_CODE_SUBAGENT_MODEL="${model}"
+            exec ${pkgs.llm-agents.claude-code}/bin/claude --dangerously-skip-permissions "$@"
+          '';
+        cy-glm = mkOpenRouterWrapper "cy-glm" "z-ai/glm-5" "z-ai/glm-5-turbo";
+        cy-qwen = mkOpenRouterWrapper "cy-qwen" "qwen/qwen3.6-plus:free" "qwen/qwen3.6-plus:free";
+        cy-kimi = mkOpenRouterWrapper "cy-kimi" "moonshotai/kimi-k2.5" "moonshotai/kimi-k2.5";
 
-      _1password-cli # 1Password CLI (op)
-      gh # GitHub CLI
-      google-cloud-sdk
+      in
+      [
+        cy-glm
+        cy-qwen
+        cy-kimi
+        inputs.googleworkspace-cli.packages.${pkgs.stdenv.hostPlatform.system}.default
+        llm-agents.claude-code
+        llm-agents.opencode
 
-      just
-      bun
-      tree
-      nodejs_24
+        _1password-cli # 1Password CLI (op)
+        gh # GitHub CLI
+        google-cloud-sdk
 
-      # p10k
-      zsh-powerlevel10k
-      meslo-lgs-nf
+        just
+        bun
+        tree
+        nodejs_24
 
-      # Nix LSP/formatter
-      nixd
-      nixfmt
+        # p10k
+        zsh-powerlevel10k
+        meslo-lgs-nf
 
-      # TODO:
-      # comma?
+        # Nix LSP/formatter
+        nixd
+        nixfmt
 
-      uv
-      cargo
-      rustc
-      rust-analyzer
-    ];
+        # TODO:
+        # comma?
+
+        delta
+
+        uv
+        cargo
+        rustc
+        rust-analyzer
+      ];
 
     sessionPath = [ "/Users/noah/.bun/bin" ];
 
