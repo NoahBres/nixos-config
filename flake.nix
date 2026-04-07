@@ -1,4 +1,9 @@
 {
+  nixConfig = {
+    extra-substituters = [ "https://cache.numtide.com" ];
+    extra-trusted-public-keys = [ "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g=" ];
+  };
+
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
@@ -12,6 +17,11 @@
 
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
+
+    llm-agents.url = "github:numtide/llm-agents.nix";
+    llm-agents.inputs.nixpkgs.follows = "nixpkgs";
+
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
   };
 
   outputs =
@@ -22,6 +32,8 @@
       home-manager,
       googleworkspace-cli,
       disko,
+      llm-agents,
+      determinate,
       ...
     }:
     {
@@ -29,6 +41,8 @@
       # $ darwin-rebuild build --flake .#rnn
       darwinConfigurations."rnn" = nix-darwin.lib.darwinSystem {
         modules = [
+          { nixpkgs.overlays = [ llm-agents.overlays.default ]; }
+          determinate.darwinModules.default
           ./configuration.nix
           home-manager.darwinModules.home-manager
         ];
@@ -40,12 +54,13 @@
       nixosConfigurations."hetzner" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
+          { nixpkgs.overlays = [ llm-agents.overlays.default ]; }
           disko.nixosModules.disko
           ./hosts/hetzner/configuration.nix
           ./hosts/hetzner/disk-config.nix
         ];
       };
 
-      formatter.aarch64-darwin = nixpkgs.legacyPackages.aarch64-darwin.nixfmt;
+      formatter.aarch64-darwin = nixpkgs.legacyPackages.aarch64-darwin.nixfmt-tree;
     };
 }
