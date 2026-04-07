@@ -22,6 +22,8 @@
     llm-agents.inputs.nixpkgs.follows = "nixpkgs";
 
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
+
+    git-hooks.url = "github:cachix/git-hooks.nix";
   };
 
   outputs =
@@ -34,6 +36,7 @@
       disko,
       llm-agents,
       determinate,
+      git-hooks,
       ...
     }:
     {
@@ -62,5 +65,18 @@
       };
 
       formatter.aarch64-darwin = nixpkgs.legacyPackages.aarch64-darwin.nixfmt-tree;
+
+      checks.aarch64-darwin.pre-commit-check = git-hooks.lib.aarch64-darwin.run {
+        src = ./.;
+        hooks.nixfmt.enable = true;
+      };
+
+      devShells.aarch64-darwin.default =
+        let
+          pkgs = nixpkgs.legacyPackages.aarch64-darwin;
+        in
+        pkgs.mkShell {
+          inherit (self.checks.aarch64-darwin.pre-commit-check) shellHook;
+        };
     };
 }

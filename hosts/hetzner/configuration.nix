@@ -48,6 +48,9 @@
     curl
     htop
     ghostty.terminfo # Provides xterm-ghostty terminfo for SSH sessions from Ghostty
+    direnv
+    nix-direnv
+    claude-code
   ];
 
   system.stateVersion = "25.05";
