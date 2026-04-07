@@ -41,6 +41,8 @@
 
   security.pam.services.sudo_local.touchIdAuth = true;
 
+  system.defaults.NSGlobalDomain.NSMenuEnableActionImages = false;
+
   system.primaryUser = "noah";
   system.configurationRevision = inputs.self.rev or inputs.self.dirtyRev or null;
   system.stateVersion = 6;
