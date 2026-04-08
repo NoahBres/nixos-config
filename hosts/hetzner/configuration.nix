@@ -9,8 +9,12 @@
 
   networking.hostName = "hetzner";
 
+  # Networking — eth0 gets IPv4 via DHCP (Hetzner provides gateway automatically)
+  # Public IPv4: 204.168.255.125 (Primary IP ID: 125521996)
+  networking.useDHCP = false;
+  networking.interfaces.eth0.useDHCP = true;
+
   # Static IPv6 — Hetzner assigns a /64; gateway is always fe80::1
-  # Verify your address with: ip addr show eth0
   networking.interfaces.eth0.ipv6.addresses = [
     {
       address = "2a01:4f9:c014:631c::1";
@@ -22,8 +26,10 @@
     interface = "eth0";
   };
   networking.nameservers = [
-    "2606:4700:4700::1111" # Cloudflare
-    "2001:4860:4860::8888" # Google
+    "1.1.1.1" # Cloudflare IPv4
+    "8.8.8.8" # Google IPv4
+    "2606:4700:4700::1111" # Cloudflare IPv6
+    "2001:4860:4860::8888" # Google IPv6
   ];
 
   # SSH
@@ -60,11 +66,9 @@
     vim
     curl
     htop
-    ghostty.terminfo # Provides xterm-ghostty terminfo for SSH sessions from Ghostty
-    direnv
-    nix-direnv
-    claude-code
   ];
+
+  nix.settings.require-sigs = false;
 
   system.stateVersion = "25.05";
 }
