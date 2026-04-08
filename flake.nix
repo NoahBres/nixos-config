@@ -1,9 +1,4 @@
 {
-  nixConfig = {
-    extra-substituters = [ "https://cache.numtide.com" ];
-    extra-trusted-public-keys = [ "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g=" ];
-  };
-
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
@@ -61,6 +56,12 @@
           disko.nixosModules.disko
           ./hosts/hetzner/configuration.nix
           ./hosts/hetzner/disk-config.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.noah = import ./hosts/hetzner/home.nix;
+          }
         ];
       };
 
