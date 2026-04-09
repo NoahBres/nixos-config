@@ -19,6 +19,8 @@
     gh
     expect
     glow
+    uv
+    nodejs
   ];
 
   programs.bash = {
