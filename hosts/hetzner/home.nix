@@ -15,12 +15,17 @@
     claude-code
     bun
     tmux
+    dtach
+    gh
+    expect
+    glow
   ];
 
   programs.bash = {
     enable = true;
     shellAliases = {
       "cy" = "claude --dangerously-skip-permissions";
+      "attach-ararat" = "dtach -a /tmp/ararat.sock";
     };
   };
 
