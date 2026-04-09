@@ -41,19 +41,22 @@
 
   systemd.user.services.ararat = {
     Unit = {
-      Description = "Ararat Telegram Bot (tmux session)";
-      After = [ "network.target" ];
+      Description = "Ararat Telegram Bot";
+      After = [ "network-online.target" ];
     };
 
     Service = {
-      Type = "oneshot";
-      RemainAfterExit = true;
-      StandardInput = "null";
-      StandardOutput = "journal";
-      StandardError = "journal";
-      ExecStartPre = "/bin/sh -c '${pkgs.git}/bin/git -C ${config.home.homeDirectory}/Developer/ararat pull || true'";
-      ExecStart = "${pkgs.tmux}/bin/tmux new-session -d -s ararat ${config.home.homeDirectory}/Developer/ararat/claude-telegram.sh";
-      ExecStop = "${pkgs.tmux}/bin/tmux kill-session -t ararat";
+      Type = "simple";
+      WorkingDirectory = "${config.home.homeDirectory}/Developer/ararat";
+      Environment = [
+        "PATH=/etc/profiles/per-user/noah/bin:/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin:/usr/bin:/bin"
+        "TERM=xterm-ghostty"
+        "COLORTERM=truecolor"
+      ];
+      ExecStartPre = "${pkgs.git}/bin/git pull --ff-only";
+      ExecStart = "${pkgs.dtach}/bin/dtach -N /tmp/ararat.sock ./claude-telegram.sh";
+      Restart = "on-failure";
+      RestartSec = 5;
     };
 
     Install = {
