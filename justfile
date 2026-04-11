@@ -10,6 +10,12 @@ switch:
 build-hetzner:
   nix build .#nixosConfigurations.hetzner.config.system.build.toplevel
 
+switch-rtk:
+  #!/usr/bin/env bash
+  set -euo pipefail
+  rsync -a --exclude='.git' --exclude='result' ./ noah@rtk.local:/tmp/nixos-config/
+  ssh -t noah@rtk.local "cd /tmp/nixos-config && darwin-rebuild switch --flake .#rtk"
+
 switch-hetzner:
   #!/usr/bin/env bash
   set -euo pipefail

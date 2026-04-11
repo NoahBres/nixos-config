@@ -47,6 +47,16 @@
         specialArgs = { inherit inputs; };
       };
 
+      darwinConfigurations."rtk" = nix-darwin.lib.darwinSystem {
+        modules = [
+          { nixpkgs.overlays = [ llm-agents.overlays.default ]; }
+          determinate.darwinModules.default
+          ./hosts/rtk/configuration.nix
+          home-manager.darwinModules.home-manager
+        ];
+        specialArgs = { inherit inputs; };
+      };
+
       # Deploy to Hetzner server using:
       # $ nixos-rebuild switch --flake .#hetzner --target-host root@hetzner --use-remote-sudo
       nixosConfigurations."hetzner" = nixpkgs.lib.nixosSystem {
