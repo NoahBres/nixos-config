@@ -2,10 +2,10 @@ update:
   nix flake update
 
 build:
-  sudo darwin-rebuild build --flake .
+  sudo darwin-rebuild build --flake .#rnn
 
 switch:
-  sudo darwin-rebuild switch --flake .
+  sudo darwin-rebuild switch --flake .#rnn
 
 build-hetzner:
   nix build .#nixosConfigurations.hetzner.config.system.build.toplevel

@@ -41,7 +41,7 @@
         modules = [
           { nixpkgs.overlays = [ llm-agents.overlays.default ]; }
           determinate.darwinModules.default
-          ./configuration.nix
+          ./hosts/rnn/configuration.nix
           home-manager.darwinModules.home-manager
         ];
         specialArgs = { inherit inputs; };
