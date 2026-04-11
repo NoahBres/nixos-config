@@ -1,50 +1,6 @@
-{ inputs, ... }:
+{ ... }:
 {
-  environment.systemPackages = [ ];
+  imports = [ ../common/darwin/configuration.nix ];
 
-  users.users.noah = {
-    name = "noah";
-    home = "/Users/noah";
-  };
-
-  determinateNix = {
-    enable = true;
-    determinateNixd.builder.state = "enabled";
-    customSettings = {
-      lazy-trees = true;
-      eval-cores = 0;
-      trusted-users = [
-        "root"
-        "noah"
-      ];
-    };
-  };
-
-  homebrew = {
-    enable = true;
-    onActivation = {
-      autoUpdate = true;
-      upgrade = true;
-      cleanup = "zap";
-    };
-    casks = [ "ghostty" ];
-  };
-
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    extraSpecialArgs = { inherit inputs; };
-    users.noah = import ./home.nix;
-
-    backupFileExtension = "hm-backup";
-  };
-
-  security.pam.services.sudo_local.touchIdAuth = true;
-
-  system.primaryUser = "noah";
-  system.configurationRevision = inputs.self.rev or inputs.self.dirtyRev or null;
-  system.stateVersion = 6;
-
-  nixpkgs.hostPlatform = "aarch64-darwin";
-  nixpkgs.config.allowUnfree = true;
+  home-manager.users.noah = import ./home.nix;
 }
