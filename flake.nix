@@ -10,9 +10,6 @@
 
     googleworkspace-cli.url = "github:googleworkspace/cli";
 
-    disko.url = "github:nix-community/disko";
-    disko.inputs.nixpkgs.follows = "nixpkgs";
-
     llm-agents.url = "github:numtide/llm-agents.nix";
     llm-agents.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -28,7 +25,6 @@
       nix-darwin,
       home-manager,
       googleworkspace-cli,
-      disko,
       llm-agents,
       determinate,
       git-hooks,
@@ -55,24 +51,6 @@
           home-manager.darwinModules.home-manager
         ];
         specialArgs = { inherit inputs; };
-      };
-
-      # Deploy to Hetzner server using:
-      # $ nixos-rebuild switch --flake .#hetzner --target-host root@hetzner --use-remote-sudo
-      nixosConfigurations."hetzner" = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          { nixpkgs.overlays = [ llm-agents.overlays.default ]; }
-          disko.nixosModules.disko
-          ./hosts/hetzner/configuration.nix
-          ./hosts/hetzner/disk-config.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.noah = import ./hosts/hetzner/home.nix;
-          }
-        ];
       };
 
       formatter.aarch64-darwin = nixpkgs.legacyPackages.aarch64-darwin.nixfmt-tree;
