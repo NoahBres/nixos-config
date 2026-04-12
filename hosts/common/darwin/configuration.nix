@@ -25,7 +25,10 @@
       upgrade = true;
       cleanup = "zap";
     };
-    casks = [ "ghostty" ];
+    casks = [
+      "claude"
+      "ghostty"
+    ];
   };
 
   home-manager = {

@@ -2,7 +2,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
-    nix-darwin.url = "github:NoahBres/nix-darwin/defaults-add-nsmenuenableactionimages";
+    nix-darwin.url = "github:NoahBres/nix-darwin/defaults-add-nsmenuenableactionimages-with-target-host";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
     home-manager.url = "github:nix-community/home-manager";

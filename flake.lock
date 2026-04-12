@@ -402,16 +402,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1775451003,
-        "narHash": "sha256-LLVZ5weAyraVsvuaztUnHfuMglJw9voegz06jluSLDs=",
+        "lastModified": 1775954467,
+        "narHash": "sha256-hlIaQ3GXmBcMkREZ3vsWy79WcZUniV0kmZtF1kPsUUY=",
         "owner": "NoahBres",
         "repo": "nix-darwin",
-        "rev": "69accbdb72b036dd7dd458d6909e1a2546055f9f",
+        "rev": "28500982a4ef4ff98b21bca1ee6d869c348095b2",
         "type": "github"
       },
       "original": {
         "owner": "NoahBres",
-        "ref": "defaults-add-nsmenuenableactionimages",
+        "ref": "defaults-add-nsmenuenableactionimages-with-target-host",
         "repo": "nix-darwin",
         "type": "github"
       }
