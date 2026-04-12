@@ -115,6 +115,14 @@ in
 
     file.".p10k.zsh".text = builtins.readFile ../../../modules/zsh/.p10k.zsh;
 
+    activation.bootstrapRepos = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      for repo in dot-claude nixos-config ararat; do
+        if [ ! -d "$HOME/Developer/$repo" ]; then
+          ${pkgs.git}/bin/git clone https://github.com/noahbres/$repo "$HOME/Developer/$repo"
+        fi
+      done
+    '';
+
     stateVersion = "25.05";
   };
 }

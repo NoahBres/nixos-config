@@ -29,6 +29,7 @@
     casks = [
       "claude"
       "ghostty"
+      "tailscale-app"
     ];
   };
 
