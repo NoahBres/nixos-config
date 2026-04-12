@@ -15,7 +15,6 @@
         "root"
         "noah"
       ];
-      secret-key-files = "/etc/nix/signing-key.sec";
     };
   };
 

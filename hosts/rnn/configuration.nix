@@ -4,6 +4,8 @@
 
   system.defaults.NSGlobalDomain.NSMenuEnableActionImages = false;
 
+  determinateNix.customSettings.secret-key-files = "/etc/nix/signing-key.sec";
+
   homebrew.casks = [
     "zed"
     "jordanbaird-ice"
