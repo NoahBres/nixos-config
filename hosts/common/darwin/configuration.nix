@@ -35,6 +35,7 @@
     casks = [
       "claude"
       "ghostty"
+      "google-chrome"
       "tailscale-app"
     ];
   };
