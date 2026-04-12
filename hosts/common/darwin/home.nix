@@ -22,18 +22,37 @@ let
 
   cy-auto = mkOpenRouterWrapper "cy-auto" "openrouter/auto" "openrouter/auto" "openrouter/auto";
   cy-glm = mkOpenRouterWrapper "cy-glm" "z-ai/glm-5" "z-ai/glm-5" "z-ai/glm-5-turbo";
-  cy-qwen = mkOpenRouterWrapper "cy-qwen" "qwen/qwen3.6-plus:free" "qwen/qwen3.6-plus:free" "qwen/qwen3.6-plus:free";
-  cy-kimi = mkOpenRouterWrapper "cy-kimi" "moonshotai/kimi-k2.5" "moonshotai/kimi-k2.5" "moonshotai/kimi-k2.5";
-  cy-ant = mkOpenRouterWrapper "cy-ant" "anthropic/claude-opus-4.6" "anthropic/claude-sonnet-4.6" "anthropic/claude-haiku-4.5";
+  cy-qwen =
+    mkOpenRouterWrapper "cy-qwen" "qwen/qwen3.6-plus:free" "qwen/qwen3.6-plus:free"
+      "qwen/qwen3.6-plus:free";
+  cy-kimi =
+    mkOpenRouterWrapper "cy-kimi" "moonshotai/kimi-k2.5" "moonshotai/kimi-k2.5"
+      "moonshotai/kimi-k2.5";
+  cy-ant =
+    mkOpenRouterWrapper "cy-ant" "anthropic/claude-opus-4.6" "anthropic/claude-sonnet-4.6"
+      "anthropic/claude-haiku-4.5";
 in
 {
   programs = {
+    tmux = {
+      enable = true;
+      mouse = true;
+      terminal = "tmux-256color";
+      extraConfig = ''
+        set -gq utf8 on
+        set -gq status-utf8 on
+        set -ga terminal-overrides ",*:Tc"
+      '';
+    };
+
     direnv = {
       enable = true;
       nix-direnv.enable = true;
     };
 
     zoxide.enable = true;
+
+    atuin.enable = true;
 
     zsh = {
       enable = true;
