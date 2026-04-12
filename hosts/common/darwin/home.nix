@@ -34,6 +34,19 @@ let
 in
 {
   programs = {
+    ghostty = {
+      enable = true;
+      package = null; # installed via homebrew
+      settings = {
+        theme = "Snazzy";
+        background-opacity = 0.9;
+        background-blur-radius = 40;
+        shell-integration-features = "cursor,title,ssh-env";
+        notify-on-command-finish = "unfocused";
+        notify-on-command-finish-action = "bell,notify";
+      };
+    };
+
     tmux = {
       enable = true;
       mouse = true;
