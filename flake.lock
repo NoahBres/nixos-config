@@ -402,11 +402,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1775965664,
-        "narHash": "sha256-sSyEHByIaaaQz8eKmRToRiui09wEk07DYfGrzJ2s5To=",
+        "lastModified": 1775972050,
+        "narHash": "sha256-pq0IHDUL+vlmuSeheHXcIWA3VxI+Fpu2uc17l64cfJ0=",
         "owner": "NoahBres",
         "repo": "nix-darwin",
-        "rev": "0c71356ef32e42f48d004140cd8d47a2fa4c96f0",
+        "rev": "a2cc238c02bde7b43f38be59b8c76a2870b3d8ec",
         "type": "github"
       },
       "original": {
