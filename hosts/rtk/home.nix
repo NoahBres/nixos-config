@@ -24,6 +24,26 @@ in
     "kill-ararat" = "launchctl kill SIGTERM gui/$UID/com.noahbres.ararat";
   };
 
+  launchd.agents.things-today-tracker = {
+    enable = true;
+    config = {
+      Label = "com.noahbres.things-today-tracker";
+      ProgramArguments = [
+        "/usr/bin/python3"
+        "${config.home.homeDirectory}/Developer/ararat/tools/things-today-tracker.py"
+      ];
+      WorkingDirectory = "${config.home.homeDirectory}/Developer/ararat";
+      EnvironmentVariables = {
+        PATH = "/opt/homebrew/bin:/etc/profiles/per-user/noah/bin:/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin:/usr/bin:/bin";
+        LANG = "en_US.UTF-8";
+        LC_ALL = "en_US.UTF-8";
+      };
+      StartCalendarInterval = [{ Hour = 9; Minute = 7; }];
+      StandardOutPath = "/tmp/things-today-tracker.log";
+      StandardErrorPath = "/tmp/things-today-tracker-error.log";
+    };
+  };
+
   launchd.agents.ararat = {
     enable = true;
     config = {
