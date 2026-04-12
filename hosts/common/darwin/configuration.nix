@@ -25,6 +25,7 @@
       upgrade = true;
       cleanup = "zap";
     };
+
     casks = [
       "claude"
       "ghostty"
