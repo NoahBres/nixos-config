@@ -36,6 +36,7 @@
       "ghostty"
       "google-chrome"
       "tailscale-app"
+      "thaw"
     ];
   };
 

@@ -8,7 +8,6 @@
 
   homebrew.casks = [
     "zed"
-    "jordanbaird-ice"
     "voiceink"
     "codex"
   ];
