@@ -2,7 +2,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
-    nix-darwin.url = "github:NoahBres/nix-darwin/defaults-add-nsmenuenableactionimages-with-target-host";
+    nix-darwin.url = "github:nix-darwin/nix-darwin";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
     home-manager.url = "github:nix-community/home-manager";
@@ -35,7 +35,7 @@
       # $ darwin-rebuild build --flake .#rnn
       darwinConfigurations."rnn" = nix-darwin.lib.darwinSystem {
         modules = [
-          { nixpkgs.overlays = [ llm-agents.overlays.default ]; }
+          { nixpkgs.overlays = [ llm-agents.overlays.shared-nixpkgs ]; }
           determinate.darwinModules.default
           ./hosts/rnn/configuration.nix
           home-manager.darwinModules.home-manager
@@ -45,7 +45,7 @@
 
       darwinConfigurations."rtk" = nix-darwin.lib.darwinSystem {
         modules = [
-          { nixpkgs.overlays = [ llm-agents.overlays.default ]; }
+          { nixpkgs.overlays = [ llm-agents.overlays.shared-nixpkgs ]; }
           determinate.darwinModules.default
           ./hosts/rtk/configuration.nix
           home-manager.darwinModules.home-manager

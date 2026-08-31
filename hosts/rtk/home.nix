@@ -1,5 +1,9 @@
 { pkgs, config, ... }:
 let
+  cloudflaredStart = pkgs.writeShellScript "cloudflared-start" ''
+    exec ${pkgs.cloudflared}/bin/cloudflared tunnel run \
+      --token "$(cat /etc/cloudflared/tunnel-token)"
+  '';
   araratatStart = pkgs.writeShellScript "ararat-start" ''
     ${pkgs.git}/bin/git pull --ff-only
     ${pkgs.tmux}/bin/tmux kill-session -t ararat 2>/dev/null || true
@@ -15,6 +19,7 @@ in
   imports = [ ../common/darwin/home.nix ];
 
   home.packages = with pkgs; [
+    cloudflared
     ffmpeg
   ];
 
@@ -22,6 +27,26 @@ in
     "attach-ararat" = "tmux attach-session -t ararat";
     "restart-ararat" = "launchctl kickstart -k gui/$UID/com.noahbres.ararat";
     "kill-ararat" = "launchctl kill SIGTERM gui/$UID/com.noahbres.ararat";
+  };
+
+  # cloudflared tunnel token must be manually deployed to the machine before activating:
+  #   sudo mkdir -p /etc/cloudflared
+  #   echo "your-tunnel-token-here" | sudo tee /etc/cloudflared/tunnel-token
+  #   sudo chmod 600 /etc/cloudflared/tunnel-token
+  # Token is available in Cloudflare Zero Trust → Networks → Tunnels → <tunnel> → Configure → Install connector
+  launchd.agents.cloudflared = {
+    enable = true;
+    config = {
+      Label = "com.noahbres.cloudflared";
+      ProgramArguments = [ "${cloudflaredStart}" ];
+      RunAtLoad = true;
+      KeepAlive = {
+        SuccessfulExit = false;
+      };
+      ThrottleInterval = 5;
+      StandardOutPath = "/tmp/cloudflared.log";
+      StandardErrorPath = "/tmp/cloudflared-error.log";
+    };
   };
 
   launchd.agents.things-today-tracker = {

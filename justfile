@@ -21,11 +21,18 @@ switch-rnn:
 build-rtk:
   sudo darwin-rebuild build --flake .#rtk
 
+# NOTE (2026-08-01): used to run remotely via `darwin-rebuild --target-host
+# --use-remote-sudo`, which only existed on a NoahBres/nix-darwin fork branch.
+# We dropped that fork (it was blocking on an unrelated nixos-render-docs
+# incompatibility and we didn't want to maintain it), so this now SSHes into
+# rtk and runs `just switch` there instead. Untested since the switch -- rtk
+# hasn't been deployed to in a while. If this breaks, the old fork-based
+# behavior is in git history (see flake.nix before this commit).
 switch-rtk:
   #!/usr/bin/env bash
   set -euo pipefail
   if [[ "$(scutil --get LocalHostName)" == "rtk" ]]; then
     sudo darwin-rebuild switch --flake .#rtk
   else
-    darwin-rebuild switch --flake .#rtk --target-host noah@rtk.local --use-remote-sudo
+    ssh noah@rtk.local 'cd ~/Developer/nixos-config && just switch'
   fi
